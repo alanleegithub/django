@@ -8,6 +8,10 @@ def search_form(request):
 
 from books.models import Book
 
+def debug(request):
+    return render(request, 'debug_info.html',
+        {'debuginfo': debuginfo})
+
 def search(request):
     errors = []
     if 'q' in request.GET:
@@ -26,7 +30,6 @@ def search(request):
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from books.forms import ContactForm
-
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -42,3 +45,10 @@ def contact(request):
     else:
         form = ContactForm(initial={'subject': 'I love your site!'})
     return render(request, 'contact_form.html', {'form': form})
+
+"""from django.shortcuts import render
+def object_list(request, model):
+    obj_list = model.objects.all()
+    template_name = 'mysite/%s_list.html' % model.__name__.lower()
+    return render(request, template_name, {'object_list': obj_list})
+"""

@@ -2,6 +2,8 @@ from django.conf.urls import patterns, include, url
 #from django.conf.urls.defaults import *
 from mysite.views import hello, current_datetime, display_meta
 from django.contrib import admin
+#from books import models, views
+
 admin.autodiscover()
 
 from books import views
@@ -20,4 +22,14 @@ urlpatterns = patterns('',
     
     url(r'^contact/$', views.contact),
     url(r'^contact/thanks/$', views.contact),
+
+    #url(r'^events/$', views.object_list, {'model': models.Event}),
+    #url(r'^blog/entries/$', views.object_list, {'model': models.BlogEntry}),
 )
+
+# The URL /debuginfo/ will only be available if your DEBUG setting is set to True.
+from django.conf import settings
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^debuginfo/$', views.debug),
+    )
